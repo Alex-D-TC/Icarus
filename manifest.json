@@ -1,0 +1,40 @@
+{
+    "name" : "Icarus",
+    "version" : "0.0.0.1",
+    "manifest_version": 2,
+    "description" : "Saves / downloads songs from Pandora on-demand",
+    "background" : {
+        "persistent" : false,
+        "page": "background.html"
+    },
+    "permissions": [
+        "http://www.pandora.com/*",
+        "https://www.pandora.com/*",
+        "https://www.youtube.com/*",
+        "http://localhost/*",
+        "https://apis.google.com/*",
+        "https://www.youtubeinmp3.com/*",
+        "downloads",
+        "tabs"],
+    "page_action": {
+        "default_icon": {
+            "19" : "images/icarus19.png",
+            "38" : "images/icarus38.png"
+        },
+        "default_title" : "Icarus"
+    },
+    
+    "content_scripts": [ {
+        "js": ["scripts/src.js"],
+        "matches": [ "http://www.pandora.com/*", "https://www.pandora.com/*", "http://localhost/*",
+            "https://www.youtube.com/*"]
+    }],
+
+    "icons": {
+        "19" : "images/icarus19.png",
+        "38" : "images/icarus38.png",
+        "128": "images/icarus_logo_128.png" // Y U NO WORK? :(
+    },
+
+    "content_security_policy": "script-src 'self' https://apis.google.com https://www.youtubeinmp3.com; object-src 'self'"
+}
