@@ -1,3 +1,5 @@
+var siteName;
+
 /**
  * Gets song name + artist based on page
  */
@@ -53,6 +55,15 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         //console.log(request);
         //console.log(request.site);
-        sendResponse({result: format(getSongData(request.site))});
+
+        if(request.function === "GO") {
+            //console.log("Dooin it!");
+            sendResponse({result: format(getSongData(siteName))});
+        }
+
+        if(request.site != null) {
+            siteName = request.site;
+            //console.log(siteName);
+        }
     }
 );

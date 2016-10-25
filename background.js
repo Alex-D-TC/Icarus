@@ -1,12 +1,15 @@
-var siteName;
-
 chrome.tabs.onUpdated.addListener(function(id, info, tab) {
     chrome.tabs.query({"active": true, "lastFocusedWindow": true}, 
         function(tabs) {
             var site = validatePage(tabs[0].url)
             //console.log(tabs[0].url + " " + site);
             if(!site.match("invalid")) {
-                siteName = site;
+
+                // Send siteName;
+                //console.log(site)
+                
+                var siteName = site;
+                chrome.tabs.sendMessage(tabs[0].id, {site: siteName})
                 chrome.pageAction.show(tab.id);
                 //console.log("loaded in " + tabs[0].url);
             }
@@ -20,7 +23,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
         //console.log("Sending site " + siteName);
         chrome.tabs.query({active: true, currentWindow: true}, 
         function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {site: siteName}, 
+            chrome.tabs.sendMessage(tabs[0].id, {function: "GO"}, 
             function(response) {
                //console.log(response.result);
                execute(response.result, function(msg) {
