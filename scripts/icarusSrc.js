@@ -3,10 +3,22 @@ const MAXRESULTS = 30;
 /**
  * Executes the youtube search, and feeds the resulting URL to the callback function
  * songData - The song name
+ * siteName - The name of the site, in case the songData varies on a site by site basis
  * callback - The callback to execute after fetching the data
  */
-function execute(songData, callback) {
-    ytSearch(songData, callback);
+function execute(songData, siteName, callback) {
+
+   switch (siteName) {
+        
+        case 'youtube':
+            callback("https://www.youtube.com/watch?v="+songData);
+            return;
+
+        default:
+            ytSearch(songData, callback);
+            return;
+    }
+
 }
 
 /**

@@ -44,9 +44,13 @@ function getCallbackBasedOnSite(site) {
         case "youtube":
             return function() {
                 //var jQsongTitle = $("#eow-title").html();
-                var songTitle = document.getElementById("eow-title").innerHTML;
                 
-                return songTitle;
+                // Just get the url... less complications
+                var url = window.location.href.split("=")[1];
+
+                //var songTitle = document.getElementById("eow-title").innerHTML;
+                
+                return url;
             }
     }
 }
@@ -58,7 +62,8 @@ chrome.runtime.onMessage.addListener(
 
         if(request.function === "GO") {
             //console.log("Dooin it!");
-            sendResponse({result: format(getSongData(siteName))});
+            sendResponse({result: format(getSongData(siteName)),
+                          site: siteName});
         }
 
         if(request.site != null) {

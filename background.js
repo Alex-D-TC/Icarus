@@ -26,7 +26,7 @@ chrome.pageAction.onClicked.addListener(function(tab) {
             chrome.tabs.sendMessage(tabs[0].id, {function: "GO"}, 
             function(response) {
                //console.log(response.result);
-               execute(response.result, function(msg) {
+               execute(response.result, response.site, function(msg) {
                     download(msg);
                 });
             })
